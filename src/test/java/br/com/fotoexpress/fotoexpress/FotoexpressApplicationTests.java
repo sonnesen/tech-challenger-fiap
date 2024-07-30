@@ -16,10 +16,10 @@ class FotoexpressApplicationTests {
 	}
 
 	@Test
-	public void testaRetornoSucessoEndpointListaPacotes() {
+	void testaRetornoSucessoEndpointListaPacotes() {
 		given()
 				.when()
-				.get("pedido/pacotes")
+				.get("pedidos/pacotes")
 				.then()
 				.statusCode(200)
 		;
