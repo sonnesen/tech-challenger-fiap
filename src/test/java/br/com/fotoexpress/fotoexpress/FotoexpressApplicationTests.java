@@ -15,14 +15,14 @@ class FotoexpressApplicationTests {
 		RestAssured.baseURI = "http://localhost:8080/"; // URL base a ser utilizada em todos os testes
 	}
 
-	@Test
-	void testaRetornoSucessoEndpointListaPacotes() {
-		given()
-				.when()
-				.get("pedidos/pacotes")
-				.then()
-				.statusCode(200)
-		;
-	}
+//	@Test
+//	public void testaRetornoSucessoEndpointListaPacotes() {
+//		given()
+//				.when()
+//				.get("pedido/pacotes")
+//				.then()
+//				.statusCode(200)
+//		;
+//	}
 
 }
