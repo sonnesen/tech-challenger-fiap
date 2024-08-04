@@ -34,7 +34,7 @@ public class PedidoResource {
     }
 
     @GetMapping()
-    @Operation(summary = "Busca todos os pedidos cadastrados", description = "Busca uma listagem de pedidos ja cadastrados",
+    @Operation(summary = "Lista todos os pedidos cadastrados", description = "Busca uma listagem de pedidos ja cadastrados",
             responses = @ApiResponse(responseCode = "200", description = "Ok", content = {@Content(schema = @Schema(implementation = Pedido.class))}))
     public ResponseEntity<List<PedidoResponse>> listaPedidosCadastrados() {
 
