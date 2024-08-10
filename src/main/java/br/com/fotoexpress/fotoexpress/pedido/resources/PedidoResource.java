@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pedidos")
+@RequestMapping(value = "/pedidos",
+        produces = "application/json",
+        consumes = "application/json")
 @Slf4j
 public class PedidoResource {
 
@@ -68,6 +70,17 @@ public class PedidoResource {
         log.info("Pedido cadastrado com sucesso, status do pedido: {}", StatusPedido.EM_ANDAMENTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Pedido Cadastrado com Sucesso");
+    }
+
+    @PutMapping("/{idpacote}/{status}")
+    public ResponseEntity<String> mudaStatusPedido(@PathVariable("idpacote") Long idPacote,
+                                                   @PathVariable("status") int status) {
+
+        log.info("Inicio Mudar o status do pedido para: {}", status);
+        pedidoService.mudaStatusPacote(idPacote, status);
+        log.info("Fim Mudar o status do pedido para: {}", status);
+
+        return ResponseEntity.ok().body("Estatus do pedido alterado com sucesso");
     }
 
 }
