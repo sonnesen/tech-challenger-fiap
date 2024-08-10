@@ -72,10 +72,10 @@ public class PedidoService {
 
     }
 
-    public void mudaStatusPedido(Long idPacote, int status) {
+    public void mudaStatusPedido(Long idPedido, int status) {
 
         try {
-           var pedido = pedidoRepository.findById(idPacote).orElseThrow();
+           var pedido = pedidoRepository.findById(idPedido).orElseThrow();
 
             pedido.setStatus(StatusPedido.getById(status));
 
@@ -89,5 +89,19 @@ public class PedidoService {
   
     public Pedido buscaPedidoPorId(Long id) {
         return pedidoRepository.findById(id).orElse(null);
+    }
+
+    public void adicionarContratoIdaoPedido(Long idPedido, String contratoId) {
+        try {
+            var pedido = pedidoRepository.findById(idPedido).orElseThrow();
+
+            pedido.setIdContrato(contratoId);
+
+            pedidoRepository.save(pedido);
+        } catch (PedidoException e) {
+            log.info("Erro ao atualizar o pedido, erro:" + e.getMessage());
+            throw new PedidoException("Não foi possivel salvar o pedido, erro:" + e.getMessage());
+        }
+
     }
 }

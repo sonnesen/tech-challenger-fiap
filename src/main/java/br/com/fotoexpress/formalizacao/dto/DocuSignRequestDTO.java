@@ -1,7 +1,6 @@
 package br.com.fotoexpress.formalizacao.dto;
 
 public record DocuSignRequestDTO(
-        String status,
         String envelopeId
 ) {
 }

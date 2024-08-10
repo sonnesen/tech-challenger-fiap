@@ -7,7 +7,8 @@ public enum StatusPedido {
     EM_ANDAMENTO (0,"Em andamento"),
     AGENDADO(1, "Agendado"),
     CANCELADO (2,"Cancelado"),
-    CONCLUIDO (3,"Concluído")
+    CONCLUIDO (3,"Concluído"),
+    AGENDAR(4, "Agendar")
     ;
 
     private final int id;

@@ -1,11 +1,14 @@
 package br.com.fotoexpress.formalizacao.service;
 
+import br.com.fotoexpress.exceptions.FormalizacaoException;
+import br.com.fotoexpress.exceptions.PedidoException;
 import br.com.fotoexpress.formalizacao.domain.entity.Formalizacao;
 import br.com.fotoexpress.formalizacao.dto.DocuSignRequestDTO;
 import br.com.fotoexpress.formalizacao.dto.FormalizacaoDTO;
 import br.com.fotoexpress.formalizacao.dto.FormalizacaoRequestDTO;
 import br.com.fotoexpress.formalizacao.repository.FormalizacaoRepository;
 import br.com.fotoexpress.pedido.model.Pedido;
+import br.com.fotoexpress.pedido.model.enums.StatusPedido;
 import br.com.fotoexpress.pedido.services.PedidoService;
 import com.docusign.esign.client.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,10 @@ public class FormalizacaoService {
             }
 
             Pedido pedido = pedidoService.buscaPedidoPorId(formalizacaoRequestDTO.pedidoId());
+            if(pedido == null) {
+                throw  new PedidoException("Pedido não encontrado pelo id, " + formalizacaoRequestDTO.pedidoId());
+            }
+
             byte[] contrato = contratoPDFService.get();
             String docuSignId = docuSignService.sendEnvelope(pedido.getCliente().getEmail(), pedido.getCliente().getNome(), contrato);
 
@@ -44,13 +51,16 @@ public class FormalizacaoService {
             formalizacao.formalizar();
 
             formalizacaoRepository.save(formalizacao);
+
+            pedidoService.adicionarContratoIdaoPedido(formalizacaoRequestDTO.pedidoId(), docuSignId);
+
             return toFormalizacaoDTO(formalizacao);
         } catch (ApiException e) {
             throw new ApiException(500, "Erro ao enviar envelope DocuSign: " + e.getMessage());
         } catch (IOException e) {
             throw new IOException("Erro ao buscar o arquivo");
-        } catch (Exception e) {
-            throw new RuntimeException("Erro ao tentar formalizar o pedido: " + e.getMessage());
+        } catch (FormalizacaoException e) {
+            throw new FormalizacaoException("Erro ao tentar formalizar o pedido: " + e.getMessage());
         }
     }
 
@@ -58,13 +68,15 @@ public class FormalizacaoService {
         try {
             Formalizacao formalizacao = formalizacaoRepository.buscaFormalizacaoPorContratoId(docuSignRequestDTO.envelopeId());
             if(formalizacao == null) {
-                throw new RuntimeException("Não foi encontrado uma formalização para este contrato.");
+                throw new FormalizacaoException("Não foi encontrado uma formalização para este contrato.");
             }
             formalizacao.assinarContrato();
             formalizacaoRepository.save(formalizacao);
+            pedidoService.mudaStatusPedido(formalizacao.getPedido().getId(), StatusPedido.AGENDAR.getId());
+
             return toFormalizacaoDTO(formalizacao);
-        }  catch (Exception e) {
-            throw new RuntimeException("Erro ao tentar formalizar o pedido: " + e.getMessage());
+        }  catch (FormalizacaoException e) {
+            throw new FormalizacaoException("Erro ao tentar formalizar o pedido: " + e.getMessage());
         }
     }
 
