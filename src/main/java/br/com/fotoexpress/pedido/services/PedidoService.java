@@ -81,10 +81,14 @@ public class PedidoService {
             pedido.setStatus(StatusPedido.getById(status));
 
             pedidoRepository.save(pedido);
-        } catch (PedidoException e) {
+       } catch (PedidoException e) {
             log.info("Erro ao atualizar o pedido, erro:" + e.getMessage());
             throw new PedidoException("Não foi possivel salvar o pedido, erro:" + e.getMessage());
         }
 
+    }
+  
+    public Pedido buscaPedidoPorId(Long id) {
+        return pedidoRepository.findById(id).orElse(null);
     }
 }
