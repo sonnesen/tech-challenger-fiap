@@ -72,11 +72,10 @@ public class PedidoService {
 
     }
 
-    public void mudaStatusPacote(Long idPacote, int status) {
+    public void mudaStatusPedido(Long idPacote, int status) {
 
         try {
-           var pedido = pedidoRepository
-                    .findById(idPacote).orElseThrow();
+           var pedido = pedidoRepository.findById(idPacote).orElseThrow();
 
             pedido.setStatus(StatusPedido.getById(status));
 

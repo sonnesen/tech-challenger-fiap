@@ -84,7 +84,7 @@ public class PedidoResource {
                                                    @PathVariable("status") int status) {
 
         log.info("Inicio Mudar o status do pedido para: {}", status);
-        pedidoService.mudaStatusPacote(idPacote, status);
+        pedidoService.mudaStatusPedido(idPacote, status);
         log.info("Fim Mudar o status do pedido para: {}", status);
 
         return ResponseEntity.ok().body("Estatus do pedido alterado com sucesso.");
