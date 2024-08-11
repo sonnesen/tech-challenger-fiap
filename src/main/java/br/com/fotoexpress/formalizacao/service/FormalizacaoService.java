@@ -12,6 +12,7 @@ import br.com.fotoexpress.pedido.model.enums.StatusPedido;
 import br.com.fotoexpress.pedido.services.PedidoService;
 import com.docusign.esign.client.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class FormalizacaoService {
 
             Pedido pedido = pedidoService.buscaPedidoPorId(formalizacaoRequestDTO.pedidoId());
             if(pedido == null) {
-                throw  new PedidoException("Pedido não encontrado pelo id, " + formalizacaoRequestDTO.pedidoId());
+                throw  new PedidoException("Pedido não encontrado pelo id, " + formalizacaoRequestDTO.pedidoId(), HttpStatus.NOT_FOUND);
             }
 
             byte[] contrato = contratoPDFService.get();
@@ -60,7 +61,7 @@ public class FormalizacaoService {
         } catch (IOException e) {
             throw new IOException("Erro ao buscar o arquivo");
         } catch (FormalizacaoException e) {
-            throw new FormalizacaoException("Erro ao tentar formalizar o pedido: " + e.getMessage());
+            throw new FormalizacaoException("Erro ao tentar formalizar o pedido: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -68,7 +69,7 @@ public class FormalizacaoService {
         try {
             Formalizacao formalizacao = formalizacaoRepository.buscaFormalizacaoPorContratoId(docuSignRequestDTO.envelopeId());
             if(formalizacao == null) {
-                throw new FormalizacaoException("Não foi encontrado uma formalização para este contrato.");
+                throw new FormalizacaoException("Não foi encontrado uma formalização para este contrato.", HttpStatus.NOT_FOUND);
             }
             formalizacao.assinarContrato();
             formalizacaoRepository.save(formalizacao);
@@ -76,7 +77,7 @@ public class FormalizacaoService {
 
             return toFormalizacaoDTO(formalizacao);
         }  catch (FormalizacaoException e) {
-            throw new FormalizacaoException("Erro ao tentar formalizar o pedido: " + e.getMessage());
+            throw new FormalizacaoException("Erro ao tentar formalizar o pedido: " + e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

@@ -85,7 +85,7 @@ public class PedidoResource {
 
         log.info("Inicio Mudar o status do pedido para: {}", status);
         pedidoService.mudaStatusPedido(idPacote, status);
-        log.info("Fim Mudar o status do pedido para: {}", status);
+        log.info("Fim Mudar o status do pedido");
 
         return ResponseEntity.ok().body("Estatus do pedido alterado com sucesso.");
     }

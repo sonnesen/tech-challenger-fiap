@@ -1,6 +1,7 @@
 package br.com.fotoexpress.pedido.model.enums;
 
 import br.com.fotoexpress.exceptions.PedidoException;
+import org.springframework.http.HttpStatus;
 
 public enum StatusPedido {
 
@@ -33,7 +34,7 @@ public enum StatusPedido {
                 return status;
             }
         }
-        throw new PedidoException("Id inválido para Status: " + id);
+        throw new PedidoException("não existe status de pedido com o id " + id, HttpStatus.NOT_FOUND);
     }
 
     public static String getDescricaoById(int id) {

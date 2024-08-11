@@ -12,6 +12,7 @@ import br.com.fotoexpress.pedido.model.mappers.PedidoResponseMapper;
 import br.com.fotoexpress.pedido.repository.PedidoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -67,7 +68,7 @@ public class PedidoService {
             pedidoRepository.save(pedido);
         } catch (PedidoException e) {
             log.info("Erro ao salvar pedido");
-            throw new PedidoException("Não foi possivel salvar o pedido, erro:" + e.getMessage());
+            throw new PedidoException("Não foi possivel salvar o pedido, erro:" + e.getMessage(), HttpStatus.NOT_FOUND);
         }
 
     }
@@ -75,18 +76,22 @@ public class PedidoService {
     public void mudaStatusPedido(Long idPedido, int status) {
 
         try {
-           var pedido = pedidoRepository.findById(idPedido).orElseThrow();
+            log.info("Verificando se existe pedido na base de dados com id {} ", idPedido);
+            var pedido = pedidoRepository.findById(idPedido).orElseThrow();
+            log.info("Pedido encontrado. Atualizando o status do pedido para {} ", status);
 
             pedido.setStatus(StatusPedido.getById(status));
+            log.info("Status do pedido atualizado. Salvando pedido... ");
 
             pedidoRepository.save(pedido);
-       } catch (PedidoException e) {
-            log.info("Erro ao atualizar o pedido, erro:" + e.getMessage());
-            throw new PedidoException("Não foi possivel salvar o pedido, erro:" + e.getMessage());
+            log.info("Pedido salvo com sucesso. ");
+        } catch (PedidoException e) {
+            log.info("Erro ao atualizar o pedido, " + e.getMessage());
+            throw new PedidoException("Não foi possivel salvar o pedido, " + e.getMessage(), HttpStatus.NOT_FOUND);
         }
 
     }
-  
+
     public Pedido buscaPedidoPorId(Long id) {
         return pedidoRepository.findById(id).orElse(null);
     }
@@ -100,7 +105,7 @@ public class PedidoService {
             pedidoRepository.save(pedido);
         } catch (PedidoException e) {
             log.info("Erro ao atualizar o pedido, erro:" + e.getMessage());
-            throw new PedidoException("Não foi possivel salvar o pedido, erro:" + e.getMessage());
+            throw new PedidoException("Não foi possivel salvar o pedido, erro:" + e.getMessage(), HttpStatus.NOT_FOUND);
         }
 
     }
