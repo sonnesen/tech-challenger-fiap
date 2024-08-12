@@ -1,5 +1,8 @@
 # tech-challenger-fiap
-Projeto de pos graduacao em arquitetura e desenvolvimento JAVA pela FIAP
+
+Bem-vindo ao repositório do projeto "Fotoexpress", desenvolvido como parte do desafio tecnológico da FIAP. Este projeto visa implementar uma API para uma empresa de fotografia, utilizando princípios de Domain-Driven Design (DDD), EventStorming e Clean Code.
+
+Projeto de pós-graduação em arquitetura e desenvolvimento JAVA pela FIAP
 ALUNOS 5ADJT
 
 <p>Edson</p>
@@ -7,6 +10,12 @@ ALUNOS 5ADJT
 <p>Luiz Romão</p>
 <p>Marcelo Souza</p>
 <p>Rodrigo Almeida</p>
+
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.7.10-brightgreen?style=flat&logo=spring&logoColor=white)
+![Java 17](https://img.shields.io/badge/Java-17-blue?style=flat&logo=java&logoColor=white)
+![Maven](https://img.shields.io/badge/Maven-3.8.5-orange?style=flat&logo=apachemaven&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?style=flat&logo=mysql&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-3.0-brightgreen?style=flat&logo=swagger&logoColor=white)
 
 ## Configurando as Variáveis de Ambiente do DocuSign
 
