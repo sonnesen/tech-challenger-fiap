@@ -31,8 +31,8 @@ ALUNOS 5ADJT
 O projeto consiste na criação de uma API para gerenciar processos e operações de uma empresa de fotografia. O desenvolvimento foi guiado pelos princípios de DDD para uma melhor organização do código e arquitetura, EventStorming para uma compreensão clara dos eventos e fluxos do sistema, e Clean Code para garantir um código limpo e sustentável.
 
 [Event Storming](https://miro.com/app/board/uXjVK6a5xfM=/?share_link_id=868388996904)
-[Wiki]([URL-do-Link](https://www.notion.so/Tech-Challenge-P-S-TECH-f6d1fa9d631248b4a980ec4f1eadd898?pvs=4))
-[Documentação]([URL-do-Link](https://docs.google.com/document/d/1BBqJWWr-0kGuwFF-z3BwpcLIFU5yAA3k1wurFEO11VU/edit#heading=h.u65y1ld2csi))
+[Wiki](https://www.notion.so/Tech-Challenge-P-S-TECH-f6d1fa9d631248b4a980ec4f1eadd898?pvs=4)
+[Documentação](https://docs.google.com/document/d/1BBqJWWr-0kGuwFF-z3BwpcLIFU5yAA3k1wurFEO11VU/edit#heading=h.u65y1ld2csi)
 
 
 ## Estrutura do Projeto
