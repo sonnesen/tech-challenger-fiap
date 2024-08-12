@@ -45,7 +45,7 @@ public class PedidoService {
                 .collect(Collectors.toList());
     }
 
-    public void salvaPedido(PedidoRequest pedidoDTO) {
+    public PedidoResponse salvaPedido(PedidoRequest pedidoDTO) {
 
         List<PacoteDTO> pacotes = pacotesService.buscaListaPacotesPorId(pedidoDTO.getIdPacotes());
 
@@ -66,6 +66,19 @@ public class PedidoService {
                 .build();
         try {
             pedidoRepository.save(pedido);
+            log.info("Novo Pedido salvo com sucesso. ");
+            return PedidoResponse.builder()
+                    .id(pedido.getId())
+                    .status(StatusPedido.EM_ANDAMENTO.getDescricao())
+                    .dataPedido(pedido.getDataPedido())
+                    .pacotes(pacotes)
+                    .idCliente(cliente.getId())
+                    .nomeCliente(cliente.getNome())
+                    .valor(pedidoDTO.getValorPacotes(pacotes))
+                    .desconto(pedidoDTO.getDesconto())
+                    .valorTotal(pedido.getValor() - pedido.getDesconto())
+                    .build();
+
         } catch (PedidoException e) {
             log.info("Erro ao salvar pedido");
             throw new PedidoException("Não foi possivel salvar o pedido, erro:" + e.getMessage(), HttpStatus.NOT_FOUND);

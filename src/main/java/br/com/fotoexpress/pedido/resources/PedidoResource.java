@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.ws.rs.Produces;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,6 +51,7 @@ public class PedidoResource {
     }
 
     @GetMapping("/pacotes-disponiveis")
+    @Produces("application/json")
     @Operation(summary = "Lista os pacotes de fotos disponiveis", description = "Lista de pacotes de fotos que podem ser comercializados",
             responses = @ApiResponse(responseCode = "200", description = "Ok", content = {@Content(schema = @Schema(implementation = PacoteDTO.class))}))
     public ResponseEntity<List<PacoteDTO>> buscaPacotesDisponiveis() {
@@ -58,20 +60,20 @@ public class PedidoResource {
         var pacotes = pacotesService.buscaTodosPacotesDisponiveis();
         log.info("Fim de listar pacotes disponiveis");
 
-        return ResponseEntity.ok(pacotes);
+        return ResponseEntity.status(HttpStatus.OK).body(pacotes);
     }
 
-    @PostMapping
+    @PostMapping()
     @Operation(summary = "Cadastra um novo pedido", description = "Cadastra um novo pedido",
             responses = @ApiResponse(responseCode = "201", description = "Created", content = {@Content(schema = @Schema(implementation = String.class))}))
-    public ResponseEntity<String> cadastraNovoPedido(
+    public ResponseEntity<PedidoResponse> cadastraNovoPedido(
             @RequestBody PedidoRequest request) {
 
         log.info("Cadastrando novo pedido para o cliente: {}", request.getIdCliente());
-        pedidoService.salvaPedido((request));
+       var response = pedidoService.salvaPedido((request));
         log.info("Pedido cadastrado com sucesso, status do pedido: {}", StatusPedido.EM_ANDAMENTO);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Pedido Cadastrado com Sucesso");
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/{idpacote}/{status}")
