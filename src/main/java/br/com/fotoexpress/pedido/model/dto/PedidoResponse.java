@@ -20,7 +20,9 @@ public class PedidoResponse {
     private double valor;
     private double valorTotal;
     private LocalDateTime dataPedido;
+    private String idContrato;
     private List<PacoteDTO> pacotes;
+
 
     public double getValorPacotes(List<PacoteDTO> pacotes) {
         double valorPcotes = 0;

@@ -29,6 +29,7 @@ public class PedidoResponseMapper {
                 .valor(pedido.getValor())
                 .valorTotal(pedido.getValor() - pedido.getDesconto())
                 .dataPedido(pedido.getDataPedido())
+                .idContrato(pedido.getIdContrato())
                 .build();
     }
 
