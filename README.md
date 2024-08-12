@@ -39,8 +39,6 @@ O projeto consiste na criação de uma API para gerenciar processos e operaçõe
 
 - **/src/main/java**: Código fonte da aplicação.
 - **/src/main/resources**: Arquivos de configuração e recursos.
-- **/src/test/java**: Testes unitários e de integração.
-- **/docker**: Arquivos de configuração do Docker.
 
 ## Como Executar o Projeto
 
@@ -69,29 +67,25 @@ Para rodar o projeto localmente, siga os passos abaixo:
     ```bash
     mvn spring-boot:run
     ```
-
-5. **Para executar usando Docker:**
-
-    - **Construa a imagem Docker:**
-
-        ```bash
-        docker build -t fotoexpress .
-        ```
-
-    - **Execute o container Docker:**
-
-        ```bash
-        docker run -p 8080:8080 fotoexpress
-        ```
-
-    - **Para iniciar o banco de dados MySQL com Docker:**
-
-        ```bash
-        docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=fotoexpressdb -p 3306:3306 -d mysql:latest
-        ```
-
 ## Endpoints da API
+Abaixo segue ume sequencia do fluxo para cadastrar um pedido e formalizar o contrato. 
 
+1 - Listar os clientes cadastrados na base: http://localhost:8080/clientes
+2 - Listar Pacotes disponívei: http://localhost:8080/pedidos/pacotes-disponiveis
+3 - Cadastrar um pedido com usando o cliente e os pacotes escolhidos: 
+    URL: POST http://localhost:8080/pedidos
+    Exemplo do corpo:
+    {
+    	"idCliente": 7,
+    	"idPacotes": [1,6,7],
+    	"desconto":50
+    }
+4 - Após o pedido cadastrado, enviar o contrato via *Docusign* para o cliente assinar.
+    URL: 
+5 - Apos assinatura do contrato o status do pedido passará para "AGENDAR"
+    URL:
+
+    
 A API pode ser explorada e testada utilizando o Swagger. A documentação está disponível em:
 
 http://localhost:8080/api-docs
