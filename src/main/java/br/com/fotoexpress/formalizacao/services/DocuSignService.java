@@ -1,15 +1,12 @@
-package br.com.fotoexpress.formalizacao.service;
+package br.com.fotoexpress.formalizacao.services;
 
 import com.docusign.esign.api.EnvelopesApi;
 import com.docusign.esign.client.ApiClient;
 import com.docusign.esign.client.ApiException;
 import com.docusign.esign.client.auth.OAuth;
 import com.docusign.esign.model.*;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -36,6 +33,8 @@ public class DocuSignService {
     private String assinaturaContratoURL;
 
     private ApiClient apiClient;
+
+
 
     public void init() throws ApiException, IOException {
 

@@ -1,11 +1,11 @@
-package br.com.fotoexpress.formalizacao.service;
+package br.com.fotoexpress.formalizacao.services;
 
 import br.com.fotoexpress.exceptions.FormalizacaoException;
 import br.com.fotoexpress.exceptions.PedidoException;
-import br.com.fotoexpress.formalizacao.domain.entity.Formalizacao;
-import br.com.fotoexpress.formalizacao.dto.DocuSignRequestDTO;
-import br.com.fotoexpress.formalizacao.dto.FormalizacaoDTO;
-import br.com.fotoexpress.formalizacao.dto.FormalizacaoRequestDTO;
+import br.com.fotoexpress.formalizacao.model.Formalizacao;
+import br.com.fotoexpress.formalizacao.model.dto.DocuSignRequestDTO;
+import br.com.fotoexpress.formalizacao.model.dto.FormalizacaoDTO;
+import br.com.fotoexpress.formalizacao.model.dto.FormalizacaoRequestDTO;
 import br.com.fotoexpress.formalizacao.repository.FormalizacaoRepository;
 import br.com.fotoexpress.pedido.model.Pedido;
 import br.com.fotoexpress.pedido.model.enums.StatusPedido;
@@ -19,28 +19,34 @@ import java.io.IOException;
 
 @Service
 public class FormalizacaoService {
-    @Autowired
     private FormalizacaoRepository formalizacaoRepository;
-
-    @Autowired
     private DocuSignService docuSignService;
-
-    @Autowired
     private ContratoPDFService contratoPDFService;
+    private PedidoService pedidoService;
 
     @Autowired
-    private PedidoService pedidoService;
+    public FormalizacaoService(
+            FormalizacaoRepository formalizacaoRepository,
+            DocuSignService docuSignService,
+            ContratoPDFService contratoPDFService,
+            PedidoService pedidoService
+            ) {
+        this.formalizacaoRepository = formalizacaoRepository;
+        this.docuSignService = docuSignService;
+        this.contratoPDFService = contratoPDFService;
+        this.pedidoService = pedidoService;
+    }
 
     public FormalizacaoDTO save(FormalizacaoRequestDTO formalizacaoRequestDTO) throws IOException, ApiException {
         try {
             Formalizacao formalizacaoExistente = formalizacaoRepository.buscaFormalizacaoPorPedidoId(formalizacaoRequestDTO.pedidoId());
             if (formalizacaoExistente != null) {
-                throw new RuntimeException("O pedido já possui uma formalização.");
+                throw new FormalizacaoException("O pedido já possui uma formalização.", HttpStatus.BAD_REQUEST);
             }
 
             Pedido pedido = pedidoService.buscaPedidoPorId(formalizacaoRequestDTO.pedidoId());
             if(pedido == null) {
-                throw  new PedidoException("Pedido não encontrado pelo id, " + formalizacaoRequestDTO.pedidoId(), HttpStatus.NOT_FOUND);
+                throw new PedidoException("Pedido não encontrado pelo id, " + formalizacaoRequestDTO.pedidoId(), HttpStatus.NOT_FOUND);
             }
 
             byte[] contrato = contratoPDFService.get();

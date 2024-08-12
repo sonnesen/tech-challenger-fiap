@@ -1,6 +1,6 @@
-package br.com.fotoexpress.formalizacao.domain.entity;
+package br.com.fotoexpress.formalizacao.model;
 
-import br.com.fotoexpress.formalizacao.domain.enums.StatusFormalizacao;
+import br.com.fotoexpress.formalizacao.model.enums.StatusFormalizacao;
 import br.com.fotoexpress.pedido.model.Pedido;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

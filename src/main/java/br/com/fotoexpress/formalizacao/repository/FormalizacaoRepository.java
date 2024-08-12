@@ -1,6 +1,6 @@
 package br.com.fotoexpress.formalizacao.repository;
 
-import br.com.fotoexpress.formalizacao.domain.entity.Formalizacao;
+import br.com.fotoexpress.formalizacao.model.Formalizacao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

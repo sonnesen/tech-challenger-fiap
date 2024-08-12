@@ -1,4 +1,4 @@
-package br.com.fotoexpress.formalizacao.dto;
+package br.com.fotoexpress.formalizacao.model.dto;
 
 public record DocuSignRequestDTO(
         String envelopeId

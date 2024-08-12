@@ -1,4 +1,4 @@
-package br.com.fotoexpress.formalizacao.domain.enums;
+package br.com.fotoexpress.formalizacao.model.enums;
 
 public enum StatusFormalizacao {
     PENDENTE,

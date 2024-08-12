@@ -1,4 +1,4 @@
-package br.com.fotoexpress.formalizacao.service;
+package br.com.fotoexpress.formalizacao.services;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;

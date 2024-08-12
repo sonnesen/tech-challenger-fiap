@@ -1,6 +1,6 @@
-package br.com.fotoexpress.formalizacao.dto;
+package br.com.fotoexpress.formalizacao.model.dto;
 
-import br.com.fotoexpress.formalizacao.domain.enums.StatusFormalizacao;
+import br.com.fotoexpress.formalizacao.model.enums.StatusFormalizacao;
 
 import java.time.LocalDateTime;
 
