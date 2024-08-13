@@ -74,20 +74,22 @@ Para rodar o projeto localmente, siga os passos abaixo:
 ## Endpoints da API
 Abaixo segue ume sequencia do fluxo para cadastrar um pedido e formalizar o contrato. 
 
-1 - Listar os clientes cadastrados na base: http://localhost:8080/clientes
-2 - Listar Pacotes disponívei: http://localhost:8080/pedidos/pacotes-disponiveis
-3 - Cadastrar um pedido com usando o cliente e os pacotes escolhidos: 
-    URL: POST http://localhost:8080/pedidos
+1 - Listar os clientes cadastrados na base: http://localhost:8080/clientes \
+2 - Listar Pacotes disponívei: http://localhost:8080/pedidos/pacotes-disponiveis \
+3 - Cadastrar um pedido com usando o cliente e os pacotes escolhidos: \
+    URL: POST http://localhost:8080/pedidos \
     Exemplo do corpo:
+   ``` json
     {
     	"idCliente": 7,
     	"idPacotes": [1,6,7],
     	"desconto":50
     }
-4 - Após o pedido cadastrado, enviar o contrato via *Docusign* para o cliente assinar.
-    URL: 
-5 - Apos assinatura do contrato o status do pedido passará para "AGENDAR"
-    URL:
+  ```
+4 - Após o pedido cadastrado, enviar o contrato via *Docusign* para o cliente assinar. \
+    URL: \
+5 - Apos assinatura do contrato o status do pedido passará para "AGENDAR" \
+    URL: \
 
     
 A API pode ser explorada e testada utilizando o Swagger. A documentação está disponível em:
