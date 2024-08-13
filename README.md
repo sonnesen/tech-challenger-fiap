@@ -56,13 +56,17 @@ Para rodar o projeto localmente, siga os passos abaixo:
     cd tech-challenger-fiap
     ```
 
-3. **Construa o projeto com Maven:**
+3. **Colocar as variaveis de ambiente que estão no arquivo que foi anexado junto com a documentação**
+   ```bash
+   caso isso nao seja feito o projeto nao ira fazer o build
+    ```
+5. **Construa o projeto com Maven:**
 
     ```bash
     mvn clean install
     ```
 
-4. **Inicie a aplicação localmente:**
+6. **Inicie a aplicação localmente:**
 
     ```bash
     mvn spring-boot:run
@@ -103,8 +107,6 @@ Contribuições são bem-vindas! Para contribuir com o projeto, por favor siga e
 ## Licença
 
 Este projeto está licenciado sob a [MIT License](LICENSE).
-
-
 
 ## Configurando as Variáveis de Ambiente do DocuSign
 
