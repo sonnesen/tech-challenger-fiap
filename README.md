@@ -23,6 +23,7 @@ ALUNOS 5ADJT
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Como Executar o Projeto](#como-executar-o-projeto)
 - [Endpoints da API](#endpoints-da-api)
+- [Configurando as Variáveis de Ambiente do DocuSign](#configurando-as-variáveis-de-ambiente-do-docuSign)
 - [Contribuindo](#contribuindo)
 - [Licença](#licença)
 
@@ -72,43 +73,44 @@ Para rodar o projeto localmente, siga os passos abaixo:
     mvn spring-boot:run
     ```
 ## Endpoints da API
-Abaixo segue ume sequencia do fluxo para cadastrar um pedido e formalizar o contrato. 
 
-1 - Listar os clientes cadastrados na base: http://localhost:8080/clientes \
-2 - Listar Pacotes disponívei: http://localhost:8080/pedidos/pacotes-disponiveis \
-3 - Cadastrar um pedido com usando o cliente e os pacotes escolhidos: \
-    URL: POST http://localhost:8080/pedidos \
-    Exemplo do corpo:
-   ``` json
-    {
-    	"idCliente": 7,
-    	"idPacotes": [1,6,7],
-    	"desconto":50
-    }
-  ```
-4 - Após o pedido cadastrado, enviar o contrato via *Docusign* para o cliente assinar. \
-    URL: \
-5 - Apos assinatura do contrato o status do pedido passará para "AGENDAR" \
-    URL: \
+A seguir está uma sequência de passos para cadastrar um pedido e formalizar o contrato:
 
+1. **Listar Clientes Cadastrados**  
+   Endpoint: `GET http://localhost:8080/clientes`
+
+2. **Listar Pacotes Disponíveis**  
+   Endpoint: `GET http://localhost:8080/pedidos/pacotes-disponiveis`
+
+3. **Cadastrar um Pedido**  
+   Utilize o ID do cliente e os IDs dos pacotes escolhidos para criar o pedido.  
+   Endpoint: `POST http://localhost:8080/pedidos`  
+   Exemplo de corpo da requisição:
+   ```json
+   {
+       "idCliente": 7,
+       "idPacotes": [1, 6, 7],
+       "desconto": 50
+   }
+4. **Formalizar o Contrato**  
+   Após o pedido ser cadastrado, envie o contrato via *DocuSign* para o cliente assinar. Se o cliente foi cadastrado com um e-mail real, ele receberá o e-mail da *DocuSign* com o contrato para assinatura.  
+   Endpoint: `POST http://localhost:8080/formalizacao`  
+   Exemplo de corpo da requisição:
+   ```json
+   {
+       "pedidoId": "10"  // ID do pedido criado
+   }
+5. **Atualizar Status do Pedido para "AGENDAR"**  
+   Quando o cliente assinar o contrato recebido no e-mail, o status do pedido será atualizado para "AGENDAR". Essa chamada é realizada para registrar a assinatura do contrato.  
+   Endpoint: `POST http://localhost:8080/formalizacao/contrato-assinado`  
+   Exemplo de corpo da requisição:
+   ```json
+   {
+       "envelopeId": "7883e79e-4442-49b1-97a9-685efff4b9cd"  // ID do contrato enviado
+   }
     
 A API pode ser explorada e testada utilizando o Swagger. A documentação está disponível em:
-
 http://localhost:8080/api-docs
-
-## Contribuindo
-
-Contribuições são bem-vindas! Para contribuir com o projeto, por favor siga estes passos:
-
-1. Faça um fork do repositório.
-2. Crie uma branch para sua feature ou correção (`git checkout -b feature/nova-feature`).
-3. Faça commit das suas mudanças (`git commit -am 'Adiciona nova feature'`).
-4. Envie suas alterações para o repositório (`git push origin feature/nova-feature`).
-5. Abra um pull request.
-
-## Licença
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ## Configurando as Variáveis de Ambiente do DocuSign
 
@@ -154,3 +156,17 @@ Para integrar o DocuSign ao seu projeto, siga os passos abaixo para obter as inf
       ```
 
 Agora, você configurou as variáveis de ambiente do DocuSign necessárias para a integração com o seu projeto.
+
+## Contribuindo
+
+Contribuições são bem-vindas! Para contribuir com o projeto, por favor siga estes passos:
+
+1. Faça um fork do repositório.
+2. Crie uma branch para sua feature ou correção (`git checkout -b feature/nova-feature`).
+3. Faça commit das suas mudanças (`git commit -am 'Adiciona nova feature'`).
+4. Envie suas alterações para o repositório (`git push origin feature/nova-feature`).
+5. Abra um pull request.
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
