@@ -1,0 +1,10 @@
+docusign.integrationKey=
+docusign.userId=
+docusign.apiBaseUrl=
+docusign.accountId=
+docusign.assinaturaContratoURL=
+
+# Configuracoes do banco de dados MySQL
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
